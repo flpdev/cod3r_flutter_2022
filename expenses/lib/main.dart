@@ -57,7 +57,7 @@ class MyhomePage extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors.black,
+                            color: Colors.purple,
                             width: 2,
                           ),
                         ),
@@ -68,7 +68,14 @@ class MyhomePage extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          Text(tr.title),
+                          Text(
+                            tr.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.purple,
+                            ),
+                          ),
                           Text(tr.date.toString()),
                         ],
                       )
