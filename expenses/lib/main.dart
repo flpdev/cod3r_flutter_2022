@@ -1,5 +1,6 @@
 import 'package:expenses/Model/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 main() => runApp(ExpensesApp());
 
@@ -35,7 +36,6 @@ class MyhomePage extends StatelessWidget {
           title: Text('Despesa Pessoais'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
@@ -80,7 +80,7 @@ class MyhomePage extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                           Text(
-                            tr.date.toString(),
+                            DateFormat('d MMM y').format(tr.date),
                             style: TextStyle(
                               color: Colors.grey,
                             ),
@@ -91,6 +91,38 @@ class MyhomePage extends StatelessWidget {
                   ),
                 );
               }).toList(),
+            ),
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Título',
+                      ),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Valor (R\$)',
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          child: Text('Nova Transação'),
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.purple,
+                              primary: Colors.white),
+                          onPressed: () {},
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             )
           ],
         ));
