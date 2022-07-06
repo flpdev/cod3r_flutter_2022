@@ -64,19 +64,27 @@ class MyhomePage extends StatelessWidget {
                         padding: EdgeInsets.all(10),
                         child: Text(
                           tr.value.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.purple,
+                          ),
                         ),
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             tr.title,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.purple,
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          Text(
+                            tr.date.toString(),
+                            style: TextStyle(
+                              color: Colors.grey,
                             ),
                           ),
-                          Text(tr.date.toString()),
                         ],
                       )
                     ],
