@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expenses/Model/transaction.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_list.dart';
@@ -23,13 +25,25 @@ class _TransactionUserState extends State<TransactionUser> {
       date: DateTime.now(),
     )
   ];
+
+  // Função utilizada para comunicação indireta entre filho e pai
+  _addTransaction(String title, double value) {
+    final newTransaction = Transaction(
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: value,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _transactions.add(newTransaction);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        TransactionList(_transactions),
-        TransactionForm()
-      ],
-    )
+      children: [TransactionList(_transactions), TransactionForm()],
+    );
   }
 }
