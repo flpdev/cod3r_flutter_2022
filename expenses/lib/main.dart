@@ -14,6 +14,9 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyhomePage extends StatelessWidget {
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
+
   final _transactions = [
     Transaction(
       id: 't1',
@@ -99,11 +102,13 @@ class MyhomePage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextField(
+                      controller: titleController,
                       decoration: InputDecoration(
                         labelText: 'Título',
                       ),
                     ),
                     TextField(
+                      controller: valueController,
                       decoration: InputDecoration(
                         labelText: 'Valor (R\$)',
                       ),
@@ -116,7 +121,10 @@ class MyhomePage extends StatelessWidget {
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.purple,
                               primary: Colors.white),
-                          onPressed: () {},
+                          onPressed: () {
+                            print(titleController.text);
+                            print(valueController.text);
+                          },
                         ),
                       ],
                     )
