@@ -11,7 +11,33 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyhomePage());
+    final ThemeData tema = ThemeData();
+
+// Redefinição da forma de estilizar tema
+    return MaterialApp(
+      home: MyhomePage(),
+      theme: tema.copyWith(
+        colorScheme: tema.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+        textTheme: tema.textTheme.copyWith(
+          headline6: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -21,19 +47,19 @@ class MyhomePage extends StatefulWidget {
 }
 
 class _MyhomePageState extends State<MyhomePage> {
-  final _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Compra Ração Dog',
-      value: 169.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Remédio Covid',
-      value: 58.11,
-      date: DateTime.now(),
-    )
+  final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Compra Ração Dog',
+    //   value: 169.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Remédio Covid',
+    //   value: 58.11,
+    //   date: DateTime.now(),
+    // )
   ];
 
   // Função utilizada para comunicação indireta entre filho e pai
@@ -89,7 +115,6 @@ class _MyhomePageState extends State<MyhomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        backgroundColor: Colors.purple,
         onPressed: () => _openTransactionFormModal(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
