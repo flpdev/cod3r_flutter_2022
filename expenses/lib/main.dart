@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:expenses/Model/transaction.dart';
 import 'package:expenses/components/transaction_list.dart';
 
+import 'components/chart.dart';
+
 main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
@@ -48,19 +50,36 @@ class MyhomePage extends StatefulWidget {
 
 class _MyhomePageState extends State<MyhomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Compra Ração Dog',
-    //   value: 169.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Remédio Covid',
-    //   value: 58.11,
-    //   date: DateTime.now(),
-    // )
+    Transaction(
+      id: 't1',
+      title: 'Compra Ração Dog',
+      value: 169.99,
+      date: DateTime.now().subtract(
+        Duration(
+          days: 4,
+        ),
+      ),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Remédio Covid',
+      value: 58.11,
+      date: DateTime.now().subtract(
+        Duration(
+          days: 3,
+        ),
+      ),
+    )
   ];
+
+// Importante para realizar filtragem dos registros dos ultimos 7 dias.
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
+  }
 
   // Função utilizada para comunicação indireta entre filho e pai
   _addTransaction(String title, double value) {
@@ -102,13 +121,7 @@ class _MyhomePageState extends State<MyhomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              child: Card(
-                child: Text('Gráfico'),
-                elevation: 5,
-                color: Colors.blue,
-              ),
-            ),
+            Chart(_transactions),
             TransactionList(_transactions),
           ],
         ),
