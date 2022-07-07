@@ -49,28 +49,7 @@ class MyhomePage extends StatefulWidget {
 }
 
 class _MyhomePageState extends State<MyhomePage> {
-  final List<Transaction> _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Compra Ração Dog',
-      value: 169.99,
-      date: DateTime.now().subtract(
-        Duration(
-          days: 4,
-        ),
-      ),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Remédio Covid',
-      value: 58.11,
-      date: DateTime.now().subtract(
-        Duration(
-          days: 3,
-        ),
-      ),
-    )
-  ];
+  final List<Transaction> _transactions = [];
 
 // Importante para realizar filtragem dos registros dos ultimos 7 dias.
   List<Transaction> get _recentTransactions {
@@ -82,12 +61,12 @@ class _MyhomePageState extends State<MyhomePage> {
   }
 
   // Função utilizada para comunicação indireta entre filho e pai
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
