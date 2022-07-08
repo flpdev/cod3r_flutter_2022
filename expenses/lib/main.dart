@@ -49,6 +49,7 @@ class MyhomePage extends StatefulWidget {
 
 class _MyhomePageState extends State<MyhomePage> {
   final List<Transaction> _transactions = [];
+  bool _showChart = false;
 
 // Importante para realizar filtragem dos registros dos ultimos 7 dias.
   List<Transaction> get _recentTransactions {
@@ -92,13 +93,26 @@ class _MyhomePageState extends State<MyhomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
 // AppBar transferida para variavel para captura de altura
     final appBar = AppBar(
       title: Text('Despesa Pessoais'),
       actions: [
+        if (isLandscape)
+          IconButton(
+            icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+          ),
         IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _openTransactionFormModal(context))
+          icon: Icon(Icons.add),
+          onPressed: () => _openTransactionFormModal(context),
+        ),
       ],
     );
 
@@ -113,14 +127,32 @@ class _MyhomePageState extends State<MyhomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: avaliableHeight * 0.3,
-              child: Chart(_transactions),
-            ),
-            Container(
-              height: avaliableHeight * 0.7,
-              child: TransactionList(_transactions, _removeTransaction),
-            ),
+            // if (isLandscape)
+            //   Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text('Exibir Gráfico'),
+            //       Switch(
+            //         activeColor: Theme.of(context).colorScheme.primary,
+            //         value: _showChart,
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _showChart = value;
+            //           });
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            if (_showChart || !isLandscape)
+              Container(
+                height: avaliableHeight * (isLandscape ? 0.8 : 0.3),
+                child: Chart(_transactions),
+              ),
+            if (!_showChart || !isLandscape)
+              Container(
+                height: avaliableHeight * (isLandscape ? 1 : 0.7),
+                child: TransactionList(_transactions, _removeTransaction),
+              ),
           ],
         ),
       ),
