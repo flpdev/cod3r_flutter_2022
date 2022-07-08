@@ -14,7 +14,6 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData tema = ThemeData();
-
 // Redefinição da forma de estilizar tema
     return MaterialApp(
       home: MyhomePage(),
@@ -93,21 +92,35 @@ class _MyhomePageState extends State<MyhomePage> {
 
   @override
   Widget build(BuildContext context) {
+// AppBar transferida para variavel para captura de altura
+    final appBar = AppBar(
+      title: Text('Despesa Pessoais'),
+      actions: [
+        IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _openTransactionFormModal(context))
+      ],
+    );
+
+// Ajustes para encaixar os widget ao tamanho do dispositivo
+    final avaliableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Despesa Pessoais'),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _openTransactionFormModal(context))
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_transactions),
-            TransactionList(_transactions, _removeTransaction),
+            Container(
+              height: avaliableHeight * 0.3,
+              child: Chart(_transactions),
+            ),
+            Container(
+              height: avaliableHeight * 0.7,
+              child: TransactionList(_transactions, _removeTransaction),
+            ),
           ],
         ),
       ),
