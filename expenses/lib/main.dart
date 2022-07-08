@@ -93,8 +93,8 @@ class _MyhomePageState extends State<MyhomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
 // AppBar transferida para variavel para captura de altura
     final appBar = AppBar(
@@ -117,9 +117,9 @@ class _MyhomePageState extends State<MyhomePage> {
     );
 
 // Ajustes para encaixar os widget ao tamanho do dispositivo
-    final avaliableHeight = MediaQuery.of(context).size.height -
+    final avaliableHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
 
     return Scaffold(
       appBar: appBar,
