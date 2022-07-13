@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: TextStyle(
+              headline6: const TextStyle(
                 fontSize: 20,
                 fontFamily: 'RobotoCondensed',
               ),
