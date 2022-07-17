@@ -2,35 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:meals/screens/categories_screen.dart';
 import 'package:meals/screens/favorite_screen.dart';
 
-class TabsScreen extends StatelessWidget {
+class TabsScreen extends StatefulWidget {
+  @override
+  State<TabsScreen> createState() => _TabsScreenState();
+}
+
+class _TabsScreenState extends State<TabsScreen> {
+  int _selectedScreenIndex = 0;
+  final List<Widget> _screens = [
+    CategoriesScreen(),
+    FavoriteScreen(),
+  ];
+
+  final List<String> _titles = [
+    'Lista de Categorias',
+    'Meus Favoritos',
+  ];
+
+  _selectScreen(int index) {
+    setState(() {
+      _selectedScreenIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Center(
-            child: Text("Vamos Cozinhar?"),
-          ),
-          bottom: const TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.category),
-                text: "Categorias",
-              ),
-              Tab(
-                icon: Icon(Icons.star),
-                text: "Favoritos",
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(
+          child: Text(_titles[_selectedScreenIndex]),
         ),
-        body: TabBarView(
-          children: [
-            CategoriesScreen(),
-            FavoriteScreen(),
-          ],
-        ),
+      ),
+      body: _screens[_selectedScreenIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectScreen,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        currentIndex: _selectedScreenIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: "Categoria",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            label: "Favoritos",
+          ),
+        ],
       ),
     );
   }
