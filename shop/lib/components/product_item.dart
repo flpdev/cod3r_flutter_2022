@@ -17,11 +17,13 @@ class ProductItem extends StatelessWidget {
           backgroundColor: Colors.black87,
           leading: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.favorite),
+            icon: const Icon(Icons.favorite),
+            color: Theme.of(context).colorScheme.secondary,
           ),
           trailing: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       ),
